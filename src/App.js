@@ -15,6 +15,14 @@ function App() {
   const [password, setPassword] = useState('');
   const auth = getAuth();
 
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
   const handleGoogleSignIn = () => {
     const googleProvider = new GoogleAuthProvider();
 
@@ -48,7 +56,12 @@ function App() {
             Email
           </label>
           <div class='col-sm-10'>
-            <input type='email' class='form-control' id='inputEmail3' />
+            <input
+              onBlur={handleEmail}
+              type='email'
+              class='form-control'
+              id='inputEmail3'
+            />
           </div>
         </div>
         <div class='row mb-3'>
@@ -56,7 +69,12 @@ function App() {
             Password
           </label>
           <div class='col-sm-10'>
-            <input type='password' class='form-control' id='inputPassword3' />
+            <input
+              onBlur={handlePassword}
+              type='password'
+              class='form-control'
+              id='inputPassword3'
+            />
           </div>
         </div>
         <div class='row mb-3'>
