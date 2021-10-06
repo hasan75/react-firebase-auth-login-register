@@ -7,6 +7,9 @@
 
 # testing
 /coverage
+#file
+Firebase.confiq.js
+Firebase.initialize.js
 
 # production
 /build

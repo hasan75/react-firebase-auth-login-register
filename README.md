@@ -6,6 +6,8 @@ this project is buid using react.
 - firebase Email and Password authentication added
 - Firebase config files are gitIgnored!!
 
+- google authentication is also used, nothing showed, in colsole user info shows as object!
+
 ---
 
 #CopyWrite
