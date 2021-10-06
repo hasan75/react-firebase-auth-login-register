@@ -5,6 +5,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { useState } from 'react';
 
@@ -60,6 +61,16 @@ function App() {
       return;
     }
     handleNewUser(email, password);
+  };
+  const logInUser = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        setError(error.messsage);
+      });
   };
 
   const handleNewUser = (email, password) => {
