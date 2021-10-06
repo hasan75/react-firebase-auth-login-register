@@ -55,6 +55,10 @@ function App() {
       setError('Password must contain two UpperCase characters');
       return;
     }
+    if (!/(?=.*[0-9].*[0-9])/.test(password)) {
+      setError('Password must contain two numbers');
+      return;
+    }
     handleNewUser(email, password);
   };
 
@@ -67,7 +71,6 @@ function App() {
       })
       .catch((error) => {
         setError(error.message);
-        console.log(error);
       });
   };
 
