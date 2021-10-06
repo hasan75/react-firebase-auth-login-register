@@ -10,19 +10,17 @@ import {
 import { useState } from 'react';
 
 InitializeAuthentication();
+const googleProvider = new GoogleAuthProvider();
 
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [error, setError] = useState('');
   const [isLogIn, setIsLogIn] = useState(false);
 
   const auth = getAuth();
 
   const handleGoogleSignIn = () => {
-    const googleProvider = new GoogleAuthProvider();
-
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const user = result.user;
@@ -47,6 +45,7 @@ function App() {
 
   const handleRegistration = (e) => {
     e.preventDefault();
+    console.log(email, password);
     //password validity check
     if (password.length < 6) {
       setError('Password must contain 6 characters long');
@@ -60,9 +59,11 @@ function App() {
       setError('Password must contain two numbers');
       return;
     }
-    handleNewUser(email, password);
+
+    isLogIn ? logInUser(email, password) : handleNewUser(email, password);
   };
-  const logInUser = () => {
+
+  const logInUser = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const user = result.user;
@@ -134,7 +135,7 @@ function App() {
         </div>
         <div className='row mb-3 text-danger'>{error}</div>
         <button
-          onClick={handleNewUser}
+          // onClick={handleNewUser}
           type='submit'
           className='btn btn-primary'
         >
