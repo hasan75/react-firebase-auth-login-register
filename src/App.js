@@ -62,7 +62,7 @@ function App() {
     handleNewUser(email, password);
   };
 
-  const handleNewUser = () => {
+  const handleNewUser = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const user = result.user;
