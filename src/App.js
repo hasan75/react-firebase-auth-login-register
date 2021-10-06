@@ -1,10 +1,18 @@
 import './App.css';
 import InitializeAuthentication from './Firebase/Firebase.initialize';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
+import { useState } from 'react';
 
 InitializeAuthentication();
 
 function App() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const auth = getAuth();
 
   const handleGoogleSignIn = () => {
@@ -20,9 +28,20 @@ function App() {
       });
   };
 
+  const handleRegistration = (e) => {
+    e.preventDefault();
+  };
+
+  const handleNewUser = () => {
+    createUserWithEmailAndPassword(auth, email, password).then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
+  };
+
   return (
     <div className='ms-3 mt-3'>
-      <form>
+      <form onSubmit={handleRegistration}>
         <h2 className='text-primary mb-3'>Please Register</h2>
         <div class='row mb-3'>
           <label for='inputEmail3' class='col-sm-2 col-form-label'>
@@ -50,8 +69,8 @@ function App() {
             </div>
           </div>
         </div>
-        <button type='submit' class='btn btn-primary'>
-          Sign in
+        <button onClick={handleNewUser} type='submit' class='btn btn-primary'>
+          Registration
         </button>
       </form>
       <br />
