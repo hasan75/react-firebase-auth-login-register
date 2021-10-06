@@ -57,7 +57,7 @@ function App() {
       });
   };
 
-  const checkLogIn = (e) => {
+  const toogleLogIn = (e) => {
     setIsLogIn(e.target.checked);
   };
 
@@ -97,7 +97,7 @@ function App() {
           <div className='col-sm-10 offset-sm-2'>
             <div className='form-check'>
               <input
-                onClick={checkLogIn}
+                onClick={toogleLogIn}
                 className='form-check-input'
                 type='checkbox'
                 id='gridCheck1'
