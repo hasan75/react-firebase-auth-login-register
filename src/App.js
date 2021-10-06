@@ -15,6 +15,8 @@ function App() {
   const [password, setPassword] = useState('');
 
   const [error, setError] = useState('');
+  const [isLogIn, setIsLogIn] = useState(false);
+
   const auth = getAuth();
 
   const handleEmail = (e) => {
@@ -51,13 +53,20 @@ function App() {
       })
       .catch((error) => {
         setError(error.message);
+        console.log(error);
       });
+  };
+
+  const checkLogIn = (e) => {
+    setIsLogIn(e.target.checked);
   };
 
   return (
     <div className='ms-3 mt-3'>
       <form onSubmit={handleRegistration}>
-        <h2 className='text-primary mb-3'>Please Register</h2>
+        <h2 className='text-primary mb-3'>
+          Please {isLogIn ? 'LogIn' : 'Registration'}
+        </h2>
         <div className='row mb-3'>
           <label htmlFor='inputEmail3' className='col-sm-2 col-form-label'>
             Email
@@ -88,6 +97,7 @@ function App() {
           <div className='col-sm-10 offset-sm-2'>
             <div className='form-check'>
               <input
+                onClick={checkLogIn}
                 className='form-check-input'
                 type='checkbox'
                 id='gridCheck1'
@@ -104,7 +114,7 @@ function App() {
           type='submit'
           className='btn btn-primary'
         >
-          Registration
+          {isLogIn ? 'Log In' : 'Registration'}
         </button>
       </form>
       <br />
