@@ -48,9 +48,14 @@ function App() {
     e.preventDefault();
     //password validity check
     if (password.length < 6) {
-      setError('Password must contain 6 characters');
+      setError('Password must contain 6 characters long');
       return;
     }
+    if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
+      setError('Password must contain two UpperCase characters');
+      return;
+    }
+    handleNewUser(email, password);
   };
 
   const handleNewUser = () => {
