@@ -19,14 +19,6 @@ function App() {
 
   const auth = getAuth();
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
   const handleGoogleSignIn = () => {
     const googleProvider = new GoogleAuthProvider();
 
@@ -40,8 +32,25 @@ function App() {
       });
   };
 
+  const toogleLogIn = (e) => {
+    setIsLogIn(e.target.checked);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
   const handleRegistration = (e) => {
     e.preventDefault();
+    //password validity check
+    if (password.length < 6) {
+      setError('Password must contain 6 characters');
+      return;
+    }
   };
 
   const handleNewUser = () => {
@@ -57,10 +66,6 @@ function App() {
       });
   };
 
-  const toogleLogIn = (e) => {
-    setIsLogIn(e.target.checked);
-  };
-
   return (
     <div className='ms-3 mt-3'>
       <form onSubmit={handleRegistration}>
@@ -73,7 +78,7 @@ function App() {
           </label>
           <div className='col-sm-10'>
             <input
-              onBlur={handleEmail}
+              onBlur={handleEmailChange}
               type='email'
               className='form-control'
               id='inputEmail3'
@@ -86,7 +91,7 @@ function App() {
           </label>
           <div className='col-sm-10'>
             <input
-              onBlur={handlePassword}
+              onBlur={handlePasswordChange}
               type='password'
               className='form-control'
               id='inputPassword3'
