@@ -13,6 +13,8 @@ InitializeAuthentication();
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [error, setError] = useState('');
   const auth = getAuth();
 
   const handleEmail = (e) => {
@@ -32,7 +34,7 @@ function App() {
         console.log(user);
       })
       .catch((error) => {
-        console.log(error.message);
+        setError(error.message);
       });
   };
 
@@ -41,53 +43,67 @@ function App() {
   };
 
   const handleNewUser = () => {
-    createUserWithEmailAndPassword(auth, email, password).then((result) => {
-      const user = result.user;
-      console.log(user);
-    });
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setError('');
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   return (
     <div className='ms-3 mt-3'>
       <form onSubmit={handleRegistration}>
         <h2 className='text-primary mb-3'>Please Register</h2>
-        <div class='row mb-3'>
-          <label for='inputEmail3' class='col-sm-2 col-form-label'>
+        <div className='row mb-3'>
+          <label htmlFor='inputEmail3' className='col-sm-2 col-form-label'>
             Email
           </label>
-          <div class='col-sm-10'>
+          <div className='col-sm-10'>
             <input
               onBlur={handleEmail}
               type='email'
-              class='form-control'
+              className='form-control'
               id='inputEmail3'
             />
           </div>
         </div>
-        <div class='row mb-3'>
-          <label for='inputPassword3' class='col-sm-2 col-form-label'>
+        <div className='row mb-3'>
+          <label htmlFor='inputPassword3' className='col-sm-2 col-form-label'>
             Password
           </label>
-          <div class='col-sm-10'>
+          <div className='col-sm-10'>
             <input
               onBlur={handlePassword}
               type='password'
-              class='form-control'
+              className='form-control'
               id='inputPassword3'
             />
           </div>
         </div>
-        <div class='row mb-3'>
-          <div class='col-sm-10 offset-sm-2'>
-            <div class='form-check'>
-              <input class='form-check-input' type='checkbox' id='gridCheck1' />
-              <label class='form-check-label' for='gridCheck1'>
+        <div className='row mb-3'>
+          <div className='col-sm-10 offset-sm-2'>
+            <div className='form-check'>
+              <input
+                className='form-check-input'
+                type='checkbox'
+                id='gridCheck1'
+              />
+              <label className='form-check-label' htmlFor='gridCheck1'>
                 Already Registered?
               </label>
             </div>
           </div>
         </div>
-        <button onClick={handleNewUser} type='submit' class='btn btn-primary'>
+        <div className='row mb-3 text-danger'>{error}</div>
+        <button
+          onClick={handleNewUser}
+          type='submit'
+          className='btn btn-primary'
+        >
           Registration
         </button>
       </form>
