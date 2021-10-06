@@ -1,10 +1,24 @@
 import './App.css';
 import InitializeAuthentication from './Firebase/Firebase.initialize';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 InitializeAuthentication();
 
 function App() {
-  const handleGoogleSignIn = () => {};
+  const auth = getAuth();
+
+  const handleGoogleSignIn = () => {
+    const googleProvider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   return (
     <div className='ms-3 mt-3'>
