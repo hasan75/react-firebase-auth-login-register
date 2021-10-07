@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendEmailVerification,
 } from 'firebase/auth';
 import { useState } from 'react';
 
@@ -37,7 +38,7 @@ function App() {
   };
 
   const handleInputName = (e) => {
-    console.log(e.target.value);
+    setName(e.target.value);
   };
 
   const handleEmailChange = (e) => {
@@ -86,10 +87,15 @@ function App() {
         const user = result.user;
         console.log(user);
         setError('');
+        verifyEmail();
       })
       .catch((error) => {
         setError(error.message);
       });
+  };
+
+  const verifyEmail = () => {
+    sendEmailVerification(auth.currentUser).then((result) => {});
   };
 
   return (
