@@ -16,6 +16,7 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [name, setName] = useState('');
   const [isLogIn, setIsLogIn] = useState(false);
 
   const auth = getAuth();
@@ -33,6 +34,10 @@ function App() {
 
   const toogleLogIn = (e) => {
     setIsLogIn(e.target.checked);
+  };
+
+  const handleInputName = (e) => {
+    console.log(e.target.value);
   };
 
   const handleEmailChange = (e) => {
@@ -68,6 +73,7 @@ function App() {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        setError('');
       })
       .catch((error) => {
         setError(error.messsage);
@@ -92,6 +98,20 @@ function App() {
         <h2 className='text-primary mb-3'>
           Please {isLogIn ? 'LogIn' : 'Registration'}
         </h2>
+        <div className='row mb-3'>
+          <label htmlFor='inputName' className='col-sm-2 col-form-label'>
+            Name
+          </label>
+          <div className='col-sm-10'>
+            <input
+              onBlur={handleInputName}
+              type='text'
+              className='form-control'
+              id='inputName'
+              placeholder='enter name'
+            />
+          </div>
+        </div>
         <div className='row mb-3'>
           <label htmlFor='inputEmail3' className='col-sm-2 col-form-label'>
             Email
@@ -142,8 +162,7 @@ function App() {
           {isLogIn ? 'Log In' : 'Registration'}
         </button>
       </form>
-      <br />
-      <br />
+      <br /> <br />
       <br />
       <div>-------------------------</div>
       <br />
