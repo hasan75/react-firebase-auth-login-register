@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   sendEmailVerification,
   sendPasswordResetEmail,
+  updateProfile,
 } from 'firebase/auth';
 import { useState } from 'react';
 
@@ -86,9 +87,10 @@ function App() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         setError('');
         verifyEmail();
+        updateUserName(name);
+        console.log(user);
       })
       .catch((error) => {
         setError(error.message);
@@ -97,6 +99,14 @@ function App() {
 
   const verifyEmail = () => {
     sendEmailVerification(auth.currentUser)
+      .then((result) => {})
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
+  const updateUserName = (name) => {
+    updateProfile(auth.currentUser, { displayName: name })
       .then((result) => {})
       .catch((error) => {
         setError(error.message);
