@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import { useState } from 'react';
 
@@ -95,7 +96,21 @@ function App() {
   };
 
   const verifyEmail = () => {
-    sendEmailVerification(auth.currentUser).then((result) => {});
+    sendEmailVerification(auth.currentUser)
+      .then((result) => {})
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
+  const handleResetPassword = () => {
+    sendPasswordResetEmail(auth, email)
+      .then((result) => {
+        console.log('ResetPassword Email sent');
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   return (
@@ -166,6 +181,13 @@ function App() {
           className='btn btn-primary'
         >
           {isLogIn ? 'Log In' : 'Registration'}
+        </button>
+        <button
+          onClick={handleResetPassword}
+          className='btn btn-secondary ms-3'
+        >
+          {' '}
+          Reset Password
         </button>
       </form>
       <br /> <br />
